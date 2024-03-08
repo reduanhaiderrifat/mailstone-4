@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        .centered-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.weather-container {
+    max-width: 600px;
+    height: auto;
+    padding: 10px;
+    grid-gap: 30px;
+    flex-wrap: wrap;
+}
+
+.weather {
+    width: 90px;
+    height: 90px;
+    position: relative;
+}
+
+.sun {
+    z-index: 1;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    border-radius: 50%;
+    background: linear-gradient(orange, yellow);
+    box-shadow: inset 0px 0px 10px 0px rgb(255, 99, 2), 0px 0px 10px 2px rgb(255, 99, 2) inset, 0px 0px 3px 0px rgb(255, 99, 2);
+}
+
+.cloud {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    filter: drop-shadow(0px 0px 2px #1a1a1b);
+}
+
+.left {
+    left: -40%;
+    z-index: 0;
+    top: -8%;
+}
+
+.middle {
+    top: 10%;
+    z-index: 2;
+}
+
+.inner {
+    width: 40%;
+    height: 80%;
+    position: relative;
+    background: #E9E9EA;
+    border-radius: 35px 35px 0 0;
+}
+
+.inner::before,
+.inner::after {
+    content: '';
+    width: 65%;
+    height: 65%;
+    bottom: 0px;
+    border-radius: 50%;
+    position: absolute;
+    background: #E9E9EA;
+
+}
+
+.inner::before {
+    left: -12px;
+}
+
+.inner::after {
+    right: -12px;
+}
+
+.rain {
+    top: 25%;
+    width: 90%;
+    height: 50%;
+    z-index: -1;
+    left: -15px;
+    display: flex;
+    position: relative;
+    transform: rotate(20deg);
+    justify-content: space-evenly;
+}
+
+.rainy .inner,
+.rainy .inner::before,
+.rainy .inner::after {
+    background: rgb(192, 192, 192);
+}
+
+.rain span {
+    width: 3%;
+    height: 35%;
+    border-radius: 50%;
+    animation: rain .7s linear infinite;
+    background: linear-gradient(white, #49bad8, white);
+}
+
+.rain span:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.rain span:nth-child(3) {
+    animation-delay: .2s;
+}
+
+.rain span:nth-child(4) {
+    animation-delay: .6s;
+}
+
+.rain span:nth-child(5) {
+    animation-delay: .7s;
+}
+
+.lightning {
+    left: -5px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    bottom: -30px;
+    font-size: 20px;
+    position: absolute;
+}
+
+.lightning::before {
+    content: '';
+    width: 50%;
+    height: 50%;
+    opacity: 0;
+    position: absolute;
+    filter: blur(15px);
+    animation: lightning 3s linear infinite;
+    background: linear-gradient(white, transparent);
+}
+
+.stormy span {
+    animation-duration: 250ms;
+}
+
+.full-moon {
+    z-index: 1;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    border-radius: 50%;
+    background: linear-gradient(white, #858585);
+    box-shadow: inset 0px 0px 13px 2px #696767, -3px -1px 5px 0px #434343;
+}
+
+.half-moon {
+    top: -5%;
+    left: 30%;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: -10px 6px 0 2px #bdbdbd, -14px 9px 7px 1px #4e4d4d;
+}
+
+@keyframes rain {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: .7;
+    }
+
+    100% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+}
+
+@keyframes lightning {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    20%,
+    30% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="main-container" class="centered-flex">
+        <div class="weather-container centered-flex">
+            <div class="weather">
+                <div class="sun"></div>
+            </div>
+            <div class="weather">
+                <div class="sun"></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+            </div>
+            <div class="weather">
+                <div class="cloud centered-flex left"><span class="inner"></span></div>
+                <div class="sun"></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+            </div>
+            <div class="weather cloudy">
+                <div class="cloud centered-flex left"><span class="inner"></span></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+            </div>
+            <div class="weather rainy">
+                <div class="cloud centered-flex left"><span class="inner"></span></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+                <div class="rain">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="weather stormy">
+                <div class="cloud centered-flex left"><span class="inner"></span></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+                <div class="lightning">⚡</div>
+                <div class="rain">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="weather">
+                <div class="cloud centered-flex left"><span class="inner"></span></div>
+                <div class="full-moon"></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+            </div>
+            <div class="weather">
+                <div class="full-moon"></div>
+                <div class="cloud centered-flex middle"><span class="inner"></span></div>
+            </div>
+            <div class="weather">
+                <div class="half-moon"></div>
+            </div>
+            <div class="weather">
+                <div class="full-moon"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

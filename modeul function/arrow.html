@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #main-container {
+    display: flex;
+    justify-content: center;
+  	align-items:center;
+    width: 100%;
+    height: 100%;
+}
+
+#play-btn {
+    position: relative;
+    background:none;
+    height:fit-content;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+#inner {
+    width: 9.5rem;
+    height: 3.2rem;
+    display: flex;
+    color: white;
+    font-size: 1rem;
+    overflow: hidden;
+    transition: 0.3s;
+    font-weight: bold;
+    position: relative;
+    align-items: center;
+    letter-spacing: .2rem;
+    box-sizing: border-box;
+    justify-content: center;
+    border: 5px double #2861c1;
+    box-shadow: inset 0px 0px 15px 3px #1c6399;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+.corner {
+    position: absolute;
+    background: #2861c1;
+    width: 2rem;
+    height: 4rem;
+    box-shadow: inset 0px 0px 8px #2e8ed3;
+    transition: all .1s ease-in;
+}
+
+#lt-side {
+    left: -25px;
+    top: -20px;
+    transform: rotate(45deg);
+}
+
+#rt-side {
+    right: -25px;
+    top: -20px;
+    transform: rotate(-45deg);
+}
+
+#rb-side {
+    right: -25px;
+    bottom: -20px;
+    transform: rotate(45deg);
+}
+
+#lb-side {
+    left: -25px;
+    bottom: -20px;
+    transform: rotate(-45deg);
+}
+
+#play-btn:hover #lt-side {
+    left: -10px;
+    top: -25px;
+}
+
+#play-btn:hover #rt-side {
+    right: -10px;
+    top: -25px;
+}
+
+#play-btn:hover #inner {
+    box-shadow: inset 0px 0px 20px 10px #1c6399;
+    transform: scale(0.9);
+}
+
+#play-btn:hover #rb-side {
+    bottom: -25px;
+    right: -10px;
+}
+
+#play-btn:hover #lb-side {
+    bottom: -25px;
+    left: -10px;
+}
+
+#right-arrow {
+    right: -12.5%;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+#left-arrow {
+    left: -12.5%;
+    clip-path: polygon(0% 50%, 100% 0, 100% 100%);
+}
+
+.arrow {
+    position: absolute;
+    background: #2861c1;
+    width: 1rem;
+    height: 1.1rem;
+    transition: .2s;
+}
+
+#play-btn:hover #left-arrow {
+    left: 102.5%;
+    animation: float_left_arrow 0.6s ease-in-out both infinite alternate;
+}
+
+#play-btn:hover #right-arrow {
+    right: 102.5%;
+    animation: float_right_arrow 0.6s ease-in-out both infinite alternate;
+}
+
+@keyframes float_left_arrow {
+    to {
+        transform: translateX(0.7rem);
+    }
+}
+
+@keyframes float_right_arrow {
+    to {
+        transform: translateX(-0.7rem);
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <button id="play-btn">
+            <div id="inner">
+                PLAY
+                <div id="lt-side" class="corner"></div>
+                <div id="rt-side" class="corner"></div>
+                <div id="rb-side" class="corner"></div>
+                <div id="lb-side" class="corner"></div>
+            </div>
+            <div id="left-arrow" class="arrow"></div>
+            <div id="right-arrow" class="arrow"></div>
+        </button>
+    </div>
+</body>
+</html>

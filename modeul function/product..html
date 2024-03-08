@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css');
+
+#main-container {
+    display: flex;
+    min-height: 100vh;
+    min-width: 380px;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    width: 380px;
+    display: flex;
+    position: relative;
+    border-radius: 12px;
+    flex-direction: column;
+    padding: 10px 10px 15px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #272727;
+    background: rgb(255 255 255 / 4%);
+}
+a {
+    text-decoration: none;
+}
+
+.thumbnail {
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.thumbnail img {
+    width: 100%;
+    transition: .3s;
+}
+
+.thumbnail:hover img {
+    transform: scale(1.1);
+}
+
+.title {
+    text-align: center;
+    margin: 12px 0;
+    color: white;
+}
+
+.description {
+    font-size: 12px;
+    color: rgb(159, 159, 159);
+    letter-spacing: .2px;
+    line-height: 15px;
+}
+
+.rating {
+    margin-top: 8px;
+    user-select: none;
+}
+
+.rating .stars {
+    font-size: 22px;
+    margin-right: 5px;
+    display: inline-flex;
+    color: rgb(231, 151, 3);
+    -webkit-text-stroke: 1px rgb(111 111 111 / 27%);
+}
+
+.stars span:last-child {
+    color: transparent;
+}
+
+.rating-count {
+    color: rgb(142, 142, 142);
+    letter-spacing: .5px;
+    font-size: 10px;
+}
+.prices {
+    margin-top: 6px;
+    letter-spacing: .5px;
+}
+
+.mrp {
+    color: rgb(252, 133, 133);
+    text-decoration: line-through;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.d-price {
+    color: rgb(65, 235, 156);
+    font-size: 18px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+    color: rgb(232, 232, 232);
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.cart-btn:hover,
+.buy-btn:hover {
+    filter: brightness(0.8);
+}
+
+.cart-btn {
+    background: rgb(15, 69, 110);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.buy-btn {
+    background: rgb(24, 156, 57);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cart-btn .fas {
+    margin-right: 10px;
+}
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <div class="card">
+            <a href="#">
+                <div class="thumbnail">
+                    <img src="https://i.ibb.co/xzg6ThJ/img.jpg" alt="MacBook"></div>
+                <h3 class="title">Apple MacBook Pro</h3>
+            </a>
+            <div class="description">APPLE 2023 MacBook Pro Apple Max - (16 GB/1 TB SSD/macOS Ventura) ABCDSA/A
+                (12 Inch, Light Grey, 2 Kg)
+            </div>
+            <div class="rating">
+                <span class="stars">
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                </span>
+                <span class="rating-count">9.2K Ratings</span>
+            </div>
+            <div class="prices">
+                <span class="d-price">₹ 1,09,999.00</span>
+                <span class="mrp">₹ 1,29,999.00</span>
+            </div>
+            <div class="btns">
+                <div class="cart-btn">
+                    <span class="fas fa-shopping-cart"></span>Add to cart
+                </div>
+                <a href="#">
+                    <button class="buy-btn">Buy Now</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

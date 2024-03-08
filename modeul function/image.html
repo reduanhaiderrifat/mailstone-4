@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #main-container {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.folded-img {
+    min-width: 500px;
+    display: flex;
+    cursor: pointer;
+    aspect-ratio: 1.92;
+    /*use the aspect ratio according to the image */
+}
+
+span {
+    width: 20%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/kgmy09j/img.jpg');
+    background-size: cover;
+    transition: 0.5s ease-in-out;
+}
+
+.folded-img span:nth-child(odd) {
+    transform: skewY(12deg);
+}
+
+.folded-img span:nth-child(even) {
+    transform: skewY(-12deg);
+}
+
+.folded-img:hover span {
+    transform: none;
+    box-shadow: none;
+}
+
+.folded-img span {
+    box-shadow: inset 20px 0 50px rgba(0, 0, 0, .5);
+    background-position: calc(var(--i)*-50px);
+}
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <div class="folded-img">
+            <span style="--i:0"></span>
+            <span style="--i:2"></span>
+            <span style="--i:4"></span>
+            <span style="--i:6"></span>
+            <span style="--i:8"></span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&display=swap');
+body{
+    background-color: black;
+}
+html {
+    font-size: 62.5%;
+}
+
+.centered-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.correctAnswer,
+.incrorrectAnswer {
+    transition: .3s;
+    color: #e2e2e2 !important;
+    border: 1px solid #bcbcbc !important;
+}
+
+.correctAnswer {
+    background: #13a56a7a !important;
+}
+
+.incrorrectAnswer {
+    background: #e94c4b4d !important;
+}
+
+#main-container {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    font-family: 'calibri';
+}
+
+button {
+    padding: 5px 18px;
+    border-radius: 10px;
+    font-size: 1.8rem;
+    border: 1px solid #ffffff29;
+    background: #00000063;
+    color: #d0d0d0;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Fredoka';
+}
+
+button:hover {
+    background: #000000c5;
+}
+
+.play-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.quiz-container {
+    margin: 10px;
+    width: 100%;
+    min-width: 650px;
+    color: white;
+    height: 50rem;
+    transition: .3s;
+    position: relative;
+    border-radius: 2rem;
+    border: 1px solid #626262c2;
+    background: radial-gradient(#303035, #080808 74%);
+        transform: scale(0.7);
+}
+
+.instructions {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0 1rem;
+    transition: .3s;
+    position: absolute;
+    border-radius: 2rem;
+    flex-direction: column;
+}
+
+.instructions ul {
+    font-size: 1.7em;
+    color: #eaeaea;
+    font-weight: 100;
+    font-style: italic;
+    padding: 1rem 0 1rem 1rem;
+}
+
+.instructions li {
+    margin: 2rem;
+    list-style: auto;
+    border-bottom: 1px solid rgb(255 255 255 / 4%);
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    color: #c6c6c6;
+    font-size: 2.2rem;
+    padding: 1rem 2rem;
+    position: relative;
+    font-family: 'Fredoka';
+    justify-content: space-between;
+    box-shadow: 0px 8px 8px 1px #0000007a;
+}
+
+.start-quiz {
+    align-self: center;
+}
+
+.game {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    transition: opacity .3s;
+    flex-direction: column;
+}
+
+.level,
+.score {
+    font-family: 'Fredoka';
+}
+
+.level span,
+.score span {
+    margin-left: 5px;
+}
+
+.timer {
+    left: 0;
+    bottom: 0;
+    height: 5%;
+    position: absolute;
+    background: #8ba5ee;
+}
+
+.timer-animation {
+    animation: timer 10s linear forwards;
+}
+
+.body {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    transition: .3s;
+    font-size: 2.2rem;
+    flex-direction: column;
+    justify-content: center;
+    height: -webkit-fill-available;
+}
+
+.ques-container {
+    width: 100%;
+    flex-direction: column;
+    filter: drop-shadow(0px 0px 1px #AfAfAf);
+}
+
+.ques-number {
+    width: 20%;
+    color: #d4d4d4;
+    text-align: center;
+    margin-bottom: -1%;
+    background: #060606;
+    border-radius: 10rem 10rem 0 0;
+    clip-path: polygon(10% 0%, 90% 0, 100% 100%, 0% 100%);
+}
+
+.question {
+    min-height: 8rem;
+    width: 100%;
+    color: #d4d4d4;
+    text-align: center;
+    border-radius: 50px;
+    background: #060606;
+    padding: 1.2rem 2.5rem 0.5rem;
+    clip-path: polygon(4% 5%, 96% 5%, 100% 4%, 95% 100%, 0% 100%, 5% 100%, 0% 4%);
+}
+
+.options {
+    padding: 2.5rem 0;
+    flex-wrap: wrap;
+    grid-gap: 1.2rem;
+}
+
+.options li {
+    width: 90%;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #9b9b9b;
+    padding: 8px 20px;
+    font-style: italic;
+    background: #060606;
+    border-radius: 50px 10px;
+    border: 1px solid #4a4a4a;
+    list-style: inside upper-alpha;
+}
+
+.options li:hover {
+    background: #161616;
+}
+
+.bottom {
+    width: 100%;
+    color: #c2c2c2;
+    font-size: 1.8rem;
+    padding: 1rem 2rem;
+    border-radius: 0 0 15px;
+    justify-content: space-between;
+    box-shadow: 0px -4px 6px 0px #00000038;
+}
+
+.result {
+    width: 80%;
+    height: 60%;
+    transition: .1s;
+    color: #c5c5c5;
+    font-size: 2.2rem;
+    padding: 1.5rem 0;
+    position: absolute;
+    border-radius: 40px;
+    flex-direction: column;
+    border: 1px solid #ffffff40;
+    box-shadow: 0px 0px 20px 4px #00000099;
+}
+
+.details {
+    height: -webkit-fill-available;
+    display: flex;
+    place-items: center;
+}
+
+table {
+    border-radius: 10px;
+    border: 1px solid rgb(52, 52, 52);
+    color: rgb(210, 210, 210);
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 30px;
+}
+
+th,
+td {
+    background: #08080829;
+    text-align: center;
+    padding: 10px;
+    font-size: 2rem;
+}
+
+.final-statement {
+    color: #aaffaa;
+    font-style: italic;
+    margin: -2rem 0 3rem;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+@keyframes timer {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="main-container" class="centered-flex">
+        <button class="play-btn">Play Quiz</button>
+        <div class="quiz-container centered-flex hidden">
+            <div class="instructions hidden">
+                <section class="top">Instructions</section>
+                <ul>
+                    <li>You have 10 seconds time to answer each question.</li>
+                    <li>If the timer runs out before you submit an answer, the question will be marked as unanswered.</li>
+                    <li>Once an option is selected, it cannot be changed.</li>
+                    <li>You will earn points for each correct answer.</li>
+                    <li>There is no penalty for incorrect answers, so feel free to guess if you're unsure.</li>
+                    <li>You can also see your total score at the top.</li>
+                    <li>After finishing the quiz, you'll see your final score and a summary of your answers.</li>
+                    <li>Click the "Play Quiz" button to begin the quiz.</li>
+                </ul>
+                <button class="start-quiz">Start Quiz</button>
+            </div>
+            <div class="game centered-flex hidden">
+                <section class="top">
+                    <div class="level">Level:<span>1</span></div>
+                    <div class="score">Score:<span>0</span></div>
+                    <div class="timer"></div>
+                </section>
+                <section class="body">
+                    <div class="ques-container centered-flex">
+                        <div class="ques-number"></div>
+                        <div class="question centered-flex"></div>
+                    </div>
+                    <ol class="options centered-flex">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ol>
+                </section>
+                <section class="bottom centered-flex">
+                    <div class="question-count"><span>1</span> Questions</div>
+                    <button class="next-btn"></button>
+                </section>
+            </div>
+            <div class="result hidden centered-flex">
+                <div class="text">Congrats! you have Completed this Level</div>
+                <div class="details">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Total</th>
+                                <th>Answered</th>
+                                <th>Unanswered</th>
+                                <th>Right</th>
+                                <th>Wrong</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="scorecard">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="final-statement">
+                    You have got <span></span> out of <span></span>
+                </div>
+                <div class="action">
+                    <button class="exit">Exit Quiz</button>
+                    <button class="next-level">Next Level</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const questions = [
+    {
+        question: "What CSS property is used to add shadow to an element's text?",
+        options: ["box-shadow", "text-shadow", "box-text", "element-shadow"],
+        correctAnswer: "text-shadow"
+    },
+
+    {
+        question: "Which JavaScript function is used to round a number to the nearest integer?",
+        options: ["ceil()", "round()", "floor()", "random()"],
+        correctAnswer: "round()"
+    },
+
+    {
+        question: "Which JavaScript method is used to remove the first element from an array?",
+        options: ["remove()", "pop()", "splice()", "shift()"],
+        correctAnswer: "shift()"
+    },
+
+    {
+        question: "In JavaScript, what is the purpose of the `JSON.parse()` method?",
+        options: ["To parse XML data", "To parse JSON data", "To parse HTML data", "To create a new function"],
+        correctAnswer: "To parse JSON data"
+    },
+
+    {
+        question: "What does CSS `float: left;` property value do?",
+        options: ["Floats the element to the right", "Floats the element to the center", "Floats the element to the left", "Does not affect element positioning"],
+        correctAnswer: "Floats the element to the left"
+    }
+]
+ 
+const quizContainer = document.querySelector('.quiz-container');
+const gameContainer = document.querySelector('.game');
+const timer = document.querySelector('.timer');
+const quesNum = document.querySelector('.ques-number');
+const questionBox = document.querySelector('.question');
+const optionsContainer = document.querySelector('.options')
+const optionsBox = Array.from(document.querySelectorAll('.options li'));
+const nextQuesBtn = document.querySelector('.next-btn')
+const playBtn = document.querySelector('.play-btn')
+const startQuizBtn = document.querySelector('.start-quiz')
+const instructionsBox = document.querySelector('.instructions')
+const QcountBox = document.querySelector('.question-count span');
+const topScoreBox = document.querySelector('.score span');
+const resultBox = document.querySelector('.result');
+const scoreCard = Array.from(document.querySelectorAll('.scorecard td'))
+const finalStatement = document.querySelectorAll('.final-statement span')
+const exitBtn = document.querySelector('.exit');
+const nextLevelBtn = document.querySelector('.next-level');
+const levelBox = document.querySelector('.level span');
+let currentQIndex = 0;
+let correctOptionIndex;
+let quesNumCounter = 1;
+let nextBtnTimeout;
+let totalQuestions = questions.length;
+let score = 0;
+let levels = [5,10,15];   
+let totalLevels = levels.length;
+let levelIndex = 0;
+let currentLevel;
+let quesPerLevel;
+let lastQuesIndex = -1;
+
+function evalQuesPerLevel() {
+    quesNumCounter = 1;
+    nextQuesBtn.textContent = 'Next';
+    quesPerLevel = levels[levelIndex]
+    lastQuesIndex = lastQuesIndex + quesPerLevel;
+    currentLevel = levelIndex + 1;
+    levelIndex++;
+}
+
+function loadQuestion() {
+    if (currentQIndex == lastQuesIndex) {
+        nextQuesBtn.textContent = 'Show Result';
+    }
+
+    if (currentQIndex <= lastQuesIndex) {
+        optionsContainer.style.pointerEvents = 'auto';
+        nextQuesBtn.disabled = true;
+        nextQuesBtn.classList.add('hidden');
+        quesNum.textContent = quesNumCounter;
+        QcountBox.textContent = `${quesNumCounter} of ${quesPerLevel}`;
+        levelBox.textContent = currentLevel;
+        timer.classList.remove('timer-animation');
+        startTimer();
+        const ques = questions[currentQIndex].question;
+        questionBox.textContent = ques;
+        const optionsText = questions[currentQIndex].options;
+
+        optionsText.forEach((op, i) => {
+            optionsBox[i].textContent = op;
+            optionsBox[i].classList.remove('correctAnswer')
+            optionsBox[i].classList.remove('incrorrectAnswer')
+
+            if (op == questions[currentQIndex].correctAnswer) {
+                correctOptionIndex = i;
+            }
+        })
+        quesNumCounter++;
+    }
+
+    else {
+        gameContainer.classList.add('hidden')
+        showResult()
+    }
+}
+
+function startTimer() {
+    setTimeout(() => timer.classList.add('timer-animation'), 0)
+    timer.style.animationPlayState = 'running';
+    nextBtnTimeout = setTimeout(() => {
+        nextQuesBtn.disabled = false
+        optionsContainer.style.pointerEvents = 'none';
+        autoSelected()
+        scoreCard[2].textContent++;
+        currentQIndex++;
+        nextQuesBtn.classList.remove('hidden')
+    }, 10000)
+}
+
+function skipTimer() {
+    timer.style.animationPlayState = 'paused';
+    nextQuesBtn.disabled = false;
+    clearTimeout(nextBtnTimeout)
+}
+
+function selectedOption(event) {
+    skipTimer();
+    optionsContainer.style.pointerEvents = 'none';
+    scoreCard[1].textContent++;
+    nextQuesBtn.classList.remove('hidden')
+
+    if (event.target.textContent == questions[currentQIndex].correctAnswer) {
+        event.target.classList.add('correctAnswer')
+        topScoreBox.textContent = ++score;
+        scoreCard[3].textContent++;
+    }
+    else {
+        event.target.classList.add('incrorrectAnswer')
+        scoreCard[4].textContent++;
+        autoSelected();
+    }
+    currentQIndex++;
+}
+
+function autoSelected() {
+    optionsBox[correctOptionIndex].classList.add('correctAnswer')
+}
+
+function startGame() {
+    scoreCard.forEach(element => element.textContent = 0)
+    score = 0;
+    topScoreBox.textContent = score;
+    evalQuesPerLevel();
+    loadQuestion()
+    startQuizBtn.classList.add('hidden')
+    instructionsBox.classList.add('hidden')
+    gameContainer.classList.toggle('hidden')
+    resultBox.classList.add('hidden');
+}
+
+function showInstructions() {
+    playBtn.classList.add('hidden')
+    quizContainer.classList.remove('hidden');
+    instructionsBox.classList.remove('hidden');
+}
+
+function showResult() {
+    nextLevelBtn.classList.remove('hidden');
+    scoreCard[0].textContent = quesPerLevel;
+    resultBox.classList.remove('hidden');
+    finalStatement[0].textContent = ' ' + score;
+    finalStatement[1].textContent = ' ' + quesPerLevel;
+    if (currentQIndex == totalQuestions) {
+        nextLevelBtn.disabled = true;
+        nextLevelBtn.classList.add('hidden');
+    }
+}
+
+function reset() {
+    currentQIndex = 0;
+    score = 0;
+    levelIndex = 0;
+    lastQuesIndex = -1;
+    nextLevelBtn.disabled = false;
+}
+function exitQuiz() {
+    reset();
+    resultBox.classList.add('hidden');
+    playBtn.classList.remove('hidden');
+    startQuizBtn.classList.remove('hidden');
+    quizContainer.classList.add('hidden');
+
+}
+
+nextQuesBtn.addEventListener('click', loadQuestion)
+playBtn.addEventListener('click', showInstructions)
+optionsBox.forEach((elem) => elem.addEventListener('click', selectedOption))
+startQuizBtn.addEventListener('click', startGame)
+exitBtn.addEventListener('click', exitQuiz)
+nextLevelBtn.addEventListener('click', startGame)
+</script>
+</html>
